@@ -23,7 +23,7 @@ class Object(object):
 		return results
 
 	def songlyricResult(self, songid):
-		URI		= "http://api.joox.com/web-fcgi-bin/web_lyric"
+		URI	= "http://api.joox.com/web-fcgi-bin/web_lyric"
 		params  = {"musicid":songid,"lang":"en","country":"id","_":"1516373476117"} 
 		parse_jsonp = serv.getJsonp(URI,params=params)
 		result      = mod.decodeB64(parse_jsonp['lyric'])
@@ -38,7 +38,7 @@ class Object(object):
 			results['artist']    = parse_jsonp['msinger']
 			results['album']     = parse_jsonp['malbum']
 			results['duration']  = parse_jsonp['minterval']
-			results['lyric']	 = self.songlyricResult(songid=songid)
+			results['lyric']     = self.songlyricResult(songid=songid)
 			results['mp3Url']    = mod.shortenGoogle(parse_jsonp['mp3Url'])
 			results['m4aUrl']    = mod.shortenGoogle(parse_jsonp['m4aUrl'])
 			results['song']      = parse_jsonp['msong']
