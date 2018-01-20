@@ -1,3 +1,4 @@
 flask
 requests >= 2.0
 gunicorn
+simplejson

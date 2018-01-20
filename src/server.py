@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
-import json,requests
+import requests,re
+import simplejson as json
 
 class Server(object):
 
@@ -7,8 +8,9 @@ class Server(object):
 
 
 	def getJsonp(self, url,params=None):
-		r = self._session.get(url,params=params).text
-		r = r.split("(")[1].strip("\n)")
+		r  = self._session.get(url,params=params).text
+		#r = r.split("(")[1].strip("\n)")
+		r  = r.partition('(')[-1].rpartition('\n)')[0] 
 		jsonp = json.loads(r)
 		return jsonp
 

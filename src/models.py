@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 from server import Server
-import base64,json
+import base64
+import simplejson as json
 
 serv = Server()
 class Models(object):
