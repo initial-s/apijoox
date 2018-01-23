@@ -1,4 +1,4 @@
-import requests
+import requests,time
 import simplejson as json
 from server import Server
 from models import Models
@@ -7,9 +7,11 @@ mod  = Models()
 serv = Server()
 class Object(object):
 
+	_time = str(time.time()).split(".")[0]
+
 	def searchResults(self, keywords):
 		apiURI      = "http://api.joox.com/web-fcgi-bin//web_search"
-		params      = {"callback":"jQuery110007680156477433364_1516238311941","lang":"en","country":"id","type":"0","search_input":keywords,"pn":1,"sin":"0","ein":"29","_":"1516238311942"}
+		params      = {"callback":"jQuery110007680156477433364_1516238311941","lang":"en","country":"id","type":"0","search_input":keywords,"pn":1,"sin":"0","ein":"29","_":self._time}
 		parse_jsonp = serv.getJsonp(apiURI,params=params)
 
 		results = []
@@ -25,14 +27,14 @@ class Object(object):
 
 	def songlyricResult(self, songid):
 		URI		= "http://api.joox.com/web-fcgi-bin/web_lyric"
-		params  = {"musicid":songid,"lang":"en","country":"id","_":"1516373476117"} 
+		params  = {"musicid":songid,"lang":"en","country":"id","_":self._time} 
 		parse_jsonp = serv.getJsonp(URI,params=params)
 		result      = mod.decodeB64(parse_jsonp['lyric'])
 		return result
 
 	def songinfoResults(self, songid):
 		URI		= "http://api.joox.com/web-fcgi-bin/web_get_songinfo"
-		params  = {"songid":songid,"lang":"en","country":"id"}
+		params  = {"songid":songid,"lang":"en","country":"id","from_type":"null","channel_id":"null","_":self._time}
 		parse_jsonp = serv.getJsonp(URI,params=params)
 		try:
 			results = {}
